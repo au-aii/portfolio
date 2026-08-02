@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>田中陽輝 — Portfolio</title>
+<meta name="description" content="極限の計算を、触れる体験に翻訳する。3Dシーンからのスタイライズドレンダリング研究と、リアルタイム音声AI・エージェント基盤の設計実装。">
+<style>
+  :root{
+    --bg:#faf9f7; --fg:#171614; --muted:#6b6862; --line:#e5e3de; --chip:#f1efeb;
+    --particle:20,18,16;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0d0d0c; --fg:#eae9e5; --muted:#8d8a83; --line:#252523; --chip:#1c1c1a; --particle:255,246,224;}
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased;
+    /* 日本語の約物を詰める。カギ括弧や句読点まわりの間延びが消える */
+    font-feature-settings:"palt" 1;
+    text-spacing-trim:trim-start;
+  }
+
+  /* ── hero ── */
+  .hero{position:relative;height:100svh;min-height:520px;overflow:hidden;}
+  #bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  /* テキスト側だけ地を戻して可読性を確保する */
+  .scrim{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(100deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 30%,
+      color-mix(in srgb, var(--bg) 40%, transparent) 52%,
+      transparent 72%);
+  }
+  @media (max-width:760px){
+    .scrim{background:linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 78%, transparent) 46%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 100%);}
+  }
+  .hero-in{
+    position:relative;height:100%;max-width:660px;margin:0 auto;padding:0 24px;
+    display:flex;flex-direction:column;justify-content:center;pointer-events:none;
+  }
+  .hero h1{
+    font-size:clamp(27px,6vw,42px);font-weight:600;
+    /* 見出しは詰める。大きい字ほど字間が空いて見えるため */
+    letter-spacing:-.035em;
+    margin:0 0 18px;line-height:1.45;
+  }
+  .hero .lead{
+    font-size:clamp(13.5px,2.3vw,15px);color:var(--muted);
+    margin:0 0 28px;max-width:24em;line-height:1.9;
+  }
+  .hero .name{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    margin:0 0 22px;
+  }
+  .hero .name b{
+    font-size:17px;font-weight:600;color:var(--fg);letter-spacing:.06em;
+  }
+  .hero .name span{
+    font-size:10.5px;font-weight:500;color:var(--muted);letter-spacing:.26em;
+  }
+  .hero-links{display:flex;gap:8px;flex-wrap:wrap;pointer-events:auto;}
+  .hero-links a{
+    font-size:13px;border:1px solid var(--line);border-radius:999px;padding:7px 16px;
+    background:color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter:blur(8px);transition:border-color .2s,transform .2s;
+  }
+  .hero-links a:hover{border-color:var(--fg);transform:translateY(-1px);}
+  .src{
+    position:absolute;left:24px;right:24px;bottom:26px;max-width:660px;margin:0 auto;
+    font-size:11.5px;color:var(--muted);pointer-events:auto;
+  }
+  .src a{color:var(--muted);border-bottom:1px solid var(--line);}
+  .src a:hover{color:var(--fg);}
+
+  /* ── body ── */
+  .wrap{max-width:660px;margin:0 auto;padding:0 24px 120px;}
+  h2{
+    font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin:84px 0 18px;
+  }
+  ul{list-style:none;margin:0;padding:0;}
+  li{border-bottom:1px solid var(--line);}
+  li:first-child{border-top:1px solid var(--line);}
+  a{color:var(--fg);text-decoration:none;}
+  a:focus-visible{outline:2px solid var(--fg);outline-offset:3px;}
+
+  .row{display:flex;gap:18px;align-items:baseline;padding:18px 2px;transition:padding-left .2s;}
+  a .row:hover{padding-left:8px;}
+  .row .t{flex:1;min-width:0;font-weight:500;letter-spacing:-.012em;}
+  .row .m{
+    color:var(--muted);font-size:11.5px;letter-spacing:.04em;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .sub{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:5px;line-height:1.85;letter-spacing:0;}
+
+  .facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+  .facts span{
+    font-size:11.5px;color:var(--muted);background:var(--chip);
+    border-radius:5px;padding:4px 10px;white-space:nowrap;
+    font-variant-numeric:tabular-nums;letter-spacing:.01em;
+  }
+  /* 数字だけ等幅にして、拾い読みしたときに視線が止まるようにする */
+  .facts b{
+    color:var(--fg);font-weight:600;
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    font-size:12px;letter-spacing:0;
+  }
+
+  .studies-note{color:var(--muted);font-size:13px;margin:0 0 16px;}
+  .study-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:620px){ .study-grid{grid-template-columns:1fr;} }
+  .study-grid figure{margin:0;}
+  .study-grid video,.study-grid img{
+    width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    border:1px solid var(--line);border-radius:8px;background:var(--chip);
+  }
+  .study-grid figcaption{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.7;}
+
+  footer{margin-top:76px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <p class="name"><b>田中 陽輝</b><span>HARUKI TANAKA</span></p>
+    <h1>概念で終わらせない。<br>人の手元で動くまで作る。</h1>
+    <p class="lead">計算は全部隠して、表には全能感だけを差し出したい。設計から運用まで一人で作り、いまは3つの部門を巻き込んで動かしています。</p>
+    <div class="hero-links">
+      <a href="#work">Work</a>
+      <a href="https://zenn.dev/bur">Zenn</a>
+      <a href="https://github.com/au-aii">GitHub</a>
+      <a href="./cv.html">CV</a>
+    </div>
+  </div>
+  <p class="src">この背景は Thomas アトラクタの軌道です。50万粒子のフル版 → <a href="https://gaussian-thomas-attractor.vercel.app/">Gaussian Thomas Attractor</a></p>
+</section>
+
+<div class="wrap">
+
+  <section id="work">
+    <h2>Work</h2>
+    <ul>
+      <li><div class="row">
+        <span class="t">リアルタイム音声AIのSaaS<span class="sub">設計・実装・運用を一人で。AIが音声で一次面接を行い、録画と評価まで自動化する。</span><span class="facts"><span><b>99</b> PR</span><span>CI <b>20</b>回連続green</span><span>壊れたデプロイを<b>7</b>回停止</span></span></span><span class="m">2025–26</span>
+      </div></li>
+      <li><div class="row">
+        <span class="t">音声対話AIのPOC<span class="sub">音源に依存しない対話ループとして設計。コアループを2日で通した。</span></span><span class="m">2026</span>
+      </div></li>
+      <li><div class="row">
+        <span class="t">HowTune<span class="sub">AirPodsで頭の動きを取り、AIは感情を断定せず問いかける。意味はユーザーが見つける。</span><span class="facts"><span>ハッカソン<b>総合3位</b></span><span>メルカリ・P&amp;G・Money Forward 審査</span></span></span><span class="m">2026</span>
+      </div></li>
+      <li><div class="row">
+        <span class="t">kairos-x<span class="sub">UE5上のリアルタイム digital human。音声から表情を生成する。</span></span><span class="m">2025</span>
+      </div></li>
+      <li><div class="row">
+        <span class="t">案件管理のAPI連携<span class="sub">3部門横断でリーダー。手作業の転記をOCRとAPIで置き換える。進行中。</span></span><span class="m">2026–</span>
+      </div></li>
+      <li><div class="row">
+        <span class="t">AI-OCR 請求書処理<span class="sub">実導入まで持っていったが、連携先の都合で使われなくなった。作ることと使われることは別だと、ここで知った。</span></span><span class="m">2025</span>
+      </div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Studies</h2>
+    <p class="studies-note">手を動かすために作ったもの。既存製品の再現とチュートリアルの模写で、企画そのものは自分のものではありません。</p>
+    <div class="study-grid">
+      <figure>
+        <video id="study-v" poster="./assets/study-motion-poster.jpg" muted loop playsinline preload="none"></video>
+        <figcaption>モーショングラフィックス — After Effects。タイポグラフィのグリッチと反復。チュートリアルを元にした習作（2023）</figcaption>
+      </figure>
+      <figure>
+        <img src="./assets/study-fanta.jpg" alt="氷に沈んだ炭酸飲料の缶を描いた3DCG" loading="lazy">
+        <figcaption>プロダクトビジュアライゼーション — Blender。氷の屈折と缶の金属反射、水滴の質感。既存製品を題材にした習作（2023）</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Writing</h2>
+    <!-- Zenn の RSS から自動生成する。取得できないときは下のリンクがそのまま残る -->
+    <ul id="posts">
+      <li><a href="https://zenn.dev/bur"><div class="row">
+        <span class="t">Zenn で技術記事を書いています</span><span class="m">→</span>
+      </div></a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Research</h2>
+    <ul>
+      <li><div class="row">
+        <span class="t">3Dシーンからのスタイライズドレンダリング<span class="sub">視点を変えても絵が破綻しない条件を、粗い3D幾何を錨にして探している。</span></span><span class="m">2026–</span>
+      </div></li>
+    </ul>
+  </section>
+
+  <footer>Last updated 2026-08 ／ Studies に含まれる商標および題材は、各権利者に帰属します。</footer>
+</div>
+
+<script>
+(function(){
+  const c = document.getElementById('bg');
+  const ctx = c.getContext('2d', { alpha: false });
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const B = 0.1998, DT = 0.055;
+  let W, H, dpr, pts, angle = 0, raf;
+
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function isDark(){ return matchMedia('(prefers-color-scheme: dark)').matches; }
+  let bg = css('--bg'), particle = css('--particle'), dark = isDark();
+
+  function seed(n){
+    pts = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++){
+      pts[i*3]   = (Math.random() - .5) * 10;
+      pts[i*3+1] = (Math.random() - .5) * 10;
+      pts[i*3+2] = (Math.random() - .5) * 10;
+    }
+  }
+
+  function resize(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = c.width  = c.clientWidth  * dpr;
+    H = c.height = c.clientHeight * dpr;
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+    // 画面が小さいほど粒子を減らす
+    const n = Math.round(Math.min(9000, Math.max(2600, (c.clientWidth * c.clientHeight) / 190)));
+    seed(n);
+  }
+
+  function frame(){
+    // 前フレームを薄く塗り潰して軌跡を残す
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = bg;
+    ctx.globalAlpha = 0.075;
+    ctx.fillRect(0, 0, W, H);
+
+    // 加算合成は暗い地の上でしか光らない。明るい地では通常合成で暗い線を置く
+    ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+    ctx.globalAlpha = 1;
+
+    angle += 0.0013;
+    const ca = Math.cos(angle), sa = Math.sin(angle);
+    const s = Math.min(W, H) / 13;
+    // 横長のときは右寄せ（左のテキストと重ねない）
+    const cx = W > H * 1.15 ? W * 0.68 : W / 2;
+    const cy = H / 2;
+    const r = dpr * 0.85;
+
+    for (let i = 0; i < pts.length; i += 3){
+      const x = pts[i], y = pts[i+1], z = pts[i+2];
+      pts[i]   = x + (Math.sin(y) - B * x) * DT;
+      pts[i+1] = y + (Math.sin(z) - B * y) * DT;
+      pts[i+2] = z + (Math.sin(x) - B * z) * DT;
+
+      // Y軸まわりに回して投影。奥行きで明度を落とす
+      const px =  x * ca - z * sa;
+      const pz =  x * sa + z * ca;
+      const depth = Math.max(0, Math.min(1, (pz + 7) / 14));
+      const a = dark ? (0.10 + depth * 0.30) : (0.045 + depth * 0.115);
+
+      ctx.fillStyle = 'rgba(' + particle + ',' + a.toFixed(3) + ')';
+      ctx.fillRect(cx + px * s, cy + y * s, r, r);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start(){
+    bg = css('--bg'); particle = css('--particle'); dark = isDark();
+    resize();
+    cancelAnimationFrame(raf);
+    if (reduce){
+      // モーションを控える設定なら、静止画として数百ステップだけ焼き込む
+      for (let k = 0; k < 400; k++){
+        ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+        const s = Math.min(W, H) / 13, cy = H/2, r = dpr * 0.85;
+        const cx = W > H * 1.15 ? W * 0.68 : W / 2;
+        for (let i = 0; i < pts.length; i += 3){
+          const x = pts[i], y = pts[i+1], z = pts[i+2];
+          pts[i]   = x + (Math.sin(y) - B * x) * DT;
+          pts[i+1] = y + (Math.sin(z) - B * y) * DT;
+          pts[i+2] = z + (Math.sin(x) - B * z) * DT;
+          ctx.fillStyle = 'rgba(' + particle + ',' + (dark ? '0.045' : '0.022') + ')';
+          ctx.fillRect(cx + x * s, cy + y * s, r, r);
+        }
+      }
+      return;
+    }
+    frame();
+  }
+
+  addEventListener('resize', () => { clearTimeout(c._t); c._t = setTimeout(start, 160); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', start);
+  // ヒーローが画面外なら止める
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { if (!reduce) frame(); }
+    else cancelAnimationFrame(raf);
+  }, { threshold: 0 }).observe(c);
+
+  start();
+})();
+
+/* 習作の動画は、画面に入ってから読み込んで再生する（初回表示を軽くする） */
+(function(){
+  const v = document.getElementById('study-v');
+  if (!v) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let loaded = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting){
+      if (!loaded){ v.src = './assets/study-motion.mp4'; loaded = true; }
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, { threshold: 0.25 }).observe(v);
+})();
+
+/* ── Zenn の記事一覧を自動追尾 ──
+   Zenn の RSS は CORS ヘッダーを返さないので /api/feed（Vercel Serverless）を挟む。
+   失敗したら何もしない ＝ HTML に書いてあるリンクがそのまま残る。 */
+(async function(){
+  const ul = document.getElementById('posts');
+  if (!ul) return;
+  try {
+    const r = await fetch('/api/feed');
+    if (!r.ok) return;
+    const doc = new DOMParser().parseFromString(await r.text(), 'application/xml');
+    if (doc.querySelector('parsererror')) return;
+
+    const items = Array.from(doc.querySelectorAll('item')).slice(0, 6);
+    if (!items.length) return;
+
+    const frag = document.createDocumentFragment();
+    for (const it of items){
+      const title = (it.querySelector('title')?.textContent || '').trim();
+      const link  = (it.querySelector('link')?.textContent || '').trim();
+      if (!title || !link) continue;
+
+      const d = new Date(it.querySelector('pubDate')?.textContent || '');
+      const year = isNaN(d.getTime()) ? '' : String(d.getFullYear());
+
+      // textContent で入れる（innerHTML を使わない）
+      const t = document.createElement('span'); t.className = 't'; t.textContent = title;
+      const m = document.createElement('span'); m.className = 'm'; m.textContent = year;
+      const row = document.createElement('div'); row.className = 'row';
+      row.append(t, m);
+      const a = document.createElement('a'); a.href = link; a.append(row);
+      const li = document.createElement('li'); li.append(a);
+      frag.append(li);
+    }
+    if (frag.childNodes.length){
+      ul.replaceChildren(frag);
+      // 一番下に Zenn へのリンクを1本足す
+      const t = document.createElement('span'); t.className = 't'; t.textContent = 'Zenn ですべての記事を見る';
+      const m = document.createElement('span'); m.className = 'm'; m.textContent = '→';
+      const row = document.createElement('div'); row.className = 'row'; row.append(t, m);
+      const a = document.createElement('a'); a.href = 'https://zenn.dev/bur'; a.append(row);
+      const li = document.createElement('li'); li.append(a);
+      ul.append(li);
+    }
+  } catch (e) { /* フォールバックのまま */ }
+})();
+</script>
+</body>
+</html>

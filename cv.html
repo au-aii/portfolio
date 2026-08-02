@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV — 田中陽輝</title>
+<meta name="description" content="東洋大学大学院 総合情報学研究科 博士前期課程1年。3Dシーンからのスタイライズドレンダリング研究と、リアルタイム音声AI・エージェント基盤の設計実装。">
+<style>
+  :root{
+    --bg:#faf9f7; --fg:#171614; --muted:#6b6862; --line:#e5e3de;
+    --chip:#f1efeb;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#121211; --fg:#e9e8e4; --muted:#8d8a83; --line:#292826; --chip:#212120;}
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:15px;line-height:1.85;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:660px;margin:0 auto;padding:84px 24px 120px;}
+
+  .back{font-size:13px;color:var(--muted);display:inline-block;margin-bottom:36px;}
+  .back:hover{color:var(--fg);}
+
+  header{margin-bottom:12px;}
+  h1{font-size:23px;font-weight:600;margin:0 0 4px;letter-spacing:.01em;}
+  .en{color:var(--muted);font-size:13.5px;letter-spacing:.06em;margin:0 0 16px;}
+  .bio{color:var(--muted);margin:0;}
+
+  h2{
+    font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:52px 0 14px;
+  }
+
+  ul{list-style:none;margin:0;padding:0;}
+  li{border-bottom:1px solid var(--line);}
+  li:first-child{border-top:1px solid var(--line);}
+
+  .row{display:flex;gap:18px;align-items:baseline;padding:14px 2px;}
+  .row .y{
+    color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums;
+    white-space:nowrap;min-width:88px;
+  }
+  .row .t{flex:1;min-width:0;}
+  .note{display:block;color:var(--muted);font-size:13px;margin-top:4px;line-height:1.75;}
+
+  .facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .facts span{
+    font-size:12px;color:var(--muted);background:var(--chip);
+    border-radius:5px;padding:3px 9px;white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+  .facts b{color:var(--fg);font-weight:600;}
+
+  .skills{display:grid;grid-template-columns:minmax(96px,120px) 1fr;gap:10px 18px;font-size:14px;}
+  .skills dt{color:var(--muted);font-size:12.5px;padding-top:2px;}
+  .skills dd{margin:0;}
+
+  a{color:var(--fg);}
+  a:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
+
+  footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;}
+
+  @media print{
+    body{background:#fff;color:#000;font-size:12px;}
+    .wrap{padding:0;max-width:none;}
+    .back{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="./">← Portfolio</a>
+
+  <header>
+    <h1>田中 陽輝</h1>
+    <p class="en">HARUKI TANAKA</p>
+    <p class="bio">東洋大学大学院 総合情報学研究科 博士前期課程1年。3Dシーンからのスタイライズドレンダリングを研究しています。並行してリアルタイム音声AI・エージェント基盤を設計・実装・運用し、学んだことを記事として公開しています。</p>
+  </header>
+
+  <section>
+    <h2>Education</h2>
+    <ul>
+      <li><div class="row">
+        <span class="y">2026.4–</span>
+        <span class="t">東洋大学大学院 総合情報学研究科 博士前期課程<span class="note">3Dシーンからのスタイライズドレンダリング。視点を変えても絵が破綻しない条件を、粗い3D幾何を錨にして探しています。</span></span>
+      </div></li>
+      <li><div class="row">
+        <span class="y">2022.4–2026.3</span>
+        <span class="t">東洋大学 総合情報学部 総合情報学科<span class="note">CG・VR・AI・データサイエンス・心理学が同居する学際環境。領域を横断して履修しました。</span></span>
+      </div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <ul>
+      <li><div class="row">
+        <span class="y">2025.9–</span>
+        <!-- TODO: 社名を出すか、「事業会社の」と一般化するか決める。Portfolio Master は業務プロジェクトの機密を出さない方針 -->
+        <span class="t">株式会社H-POWERホールディングス BPR推進チーム（インターン）<span class="note">業務プロセス改善の部署で、社内システムの設計・実装・運用を担当。AI面接SaaSと音声対話AIのPOCを設計から運用まで一人で進め、案件管理のAPI連携では営業部門・業務管理部・自部署の3部門横断でリーダーを務めています。</span><span class="facts"><span><b>99</b> PR</span><span>CI 直近<b>20</b>回すべてgreen</span><span>壊れたデプロイを<b>7</b>回停止</span></span></span>
+      </div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Awards</h2>
+    <ul>
+      <li><div class="row">
+        <span class="y">2026.5</span>
+        <span class="t">Engineer Guild Hackathon presented by Mercari — 総合3位<span class="note">4名チームのPM。AirPodsの頭部モーションとLLMで「聴き方」を可視化する音楽アプリ HowTune を制作。メルカリ・P&amp;G・Money Forward が審査。</span></span>
+      </div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <ul>
+      <li><div class="row">
+        <span class="y">2023.2</span>
+        <span class="t">ITパスポート試験</span>
+      </div></li>
+      <li><div class="row">
+        <span class="y">2023.1</span>
+        <span class="t">普通自動車第一種運転免許</span>
+      </div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>言語</dt>
+      <dd>TypeScript / Python / Swift / GLSL</dd>
+      <dt>AI・LLM</dt>
+      <dd>Gemini Live（リアルタイム音声）/ Vertex AI / Claude API（Tool Use）/ ローカルLLM / NVIDIA ACE</dd>
+      <dt>クラウド</dt>
+      <dd>GCP（Cloud Run / Pub/Sub / Cloud SQL / Cloud Functions / GCS）/ Terraform / GitHub Actions / Firebase</dd>
+      <dt>グラフィックス</dt>
+      <dd>Three.js / WebGL / 自作GLSLシェーダー / Unreal Engine 5 / Blender</dd>
+      <dt>フレームワーク</dt>
+      <dd>React / FastAPI / SwiftUI</dd>
+      <dt>その他</dt>
+      <dd>設計判断のADR文書化 / CI・CD・IaCの整備 / 部門横断のプロジェクト推進</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Writing</h2>
+    <ul>
+      <li><div class="row">
+        <span class="y">2026</span>
+        <span class="t"><a href="https://zenn.dev/bur">Zenn で技術記事を公開</a><span class="note">Agentic AI の本番運用設計、音声AI向けFAQナレッジの作り方、生成AIの作話インシデントの一次記録など。</span></span>
+      </div></li>
+    </ul>
+  </section>
+
+  <footer>
+    <!-- 連絡先はここに置かない。問い合わせ窓口が要るなら、公開用アドレスを別に用意して差し替える -->
+    Last updated 2026-08 ／ ご連絡は <a href="https://github.com/au-aii">GitHub</a> または <a href="https://zenn.dev/bur">Zenn</a> 経由でお願いします。
+  </footer>
+
+</div>
+</body>
+</html>
