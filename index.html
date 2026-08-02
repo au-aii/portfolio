@@ -7,11 +7,19 @@
 <meta name="description" content="極限の計算を、触れる体験に翻訳する。3Dシーンからのスタイライズドレンダリング研究と、リアルタイム音声AI・エージェント基盤の設計実装。">
 <style>
   :root{
-    --bg:#faf9f7; --fg:#171614; --muted:#6b6862; --line:#e5e3de; --chip:#f1efeb;
+    --bg:#faf9f7; --fg:#171614; --muted:#6b6862; --line:#e8e6e1; --chip:#f1efeb;
     --particle:20,18,16;
+    --card:#ffffff; --hover:#f6f4f1;
+    --shadow:0 1px 2px rgba(20,18,14,.045), 0 10px 30px -12px rgba(20,18,14,.11);
+    --radius:18px;
   }
   @media (prefers-color-scheme: dark){
-    :root{--bg:#0d0d0c; --fg:#eae9e5; --muted:#8d8a83; --line:#252523; --chip:#1c1c1a; --particle:255,246,224;}
+    :root{
+      --bg:#0d0d0c; --fg:#eae9e5; --muted:#8d8a83; --line:#232322; --chip:#212120; --particle:255,246,224;
+      /* 暗い地では影が沈むので、背景の明度差で浮かせる */
+      --card:#161615; --hover:#1d1d1b;
+      --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 34px -16px rgba(0,0,0,.8);
+    }
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -68,11 +76,12 @@
   }
   .hero-links{display:flex;gap:8px;flex-wrap:wrap;pointer-events:auto;}
   .hero-links a{
-    font-size:13px;border:1px solid var(--line);border-radius:999px;padding:7px 16px;
-    background:color-mix(in srgb, var(--bg) 72%, transparent);
-    backdrop-filter:blur(8px);transition:border-color .2s,transform .2s;
+    font-size:13px;border:1px solid var(--line);border-radius:999px;padding:8px 18px;
+    background:color-mix(in srgb, var(--card) 76%, transparent);
+    backdrop-filter:blur(10px);box-shadow:var(--shadow);
+    transition:border-color .2s,transform .2s,background-color .2s;
   }
-  .hero-links a:hover{border-color:var(--fg);transform:translateY(-1px);}
+  .hero-links a:hover{border-color:var(--muted);transform:translateY(-1px);background:var(--card);}
   .src{
     position:absolute;left:24px;right:24px;bottom:26px;max-width:660px;margin:0 auto;
     font-size:11.5px;color:var(--muted);pointer-events:auto;
@@ -86,14 +95,24 @@
     font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
     color:var(--muted);margin:84px 0 18px;
   }
-  ul{list-style:none;margin:0;padding:0;}
-  li{border-bottom:1px solid var(--line);}
-  li:first-child{border-top:1px solid var(--line);}
-  a{color:var(--fg);text-decoration:none;}
-  a:focus-visible{outline:2px solid var(--fg);outline-offset:3px;}
+  /* 罫線で区切るのをやめ、ひとまとまりの角丸パネルにして浮かせる */
+  ul{
+    list-style:none;margin:0;padding:0;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  li + li{border-top:1px solid var(--line);}
+  a{color:var(--fg);text-decoration:none;display:block;}
+  a:focus-visible{outline:2px solid var(--fg);outline-offset:-2px;border-radius:calc(var(--radius) - 6px);}
 
-  .row{display:flex;gap:18px;align-items:baseline;padding:18px 2px;transition:padding-left .2s;}
-  a .row:hover{padding-left:8px;}
+  .row{
+    display:flex;gap:18px;align-items:baseline;padding:18px 22px;
+    transition:background-color .18s ease;
+  }
+  a:hover .row{background:var(--hover);}
   .row .t{flex:1;min-width:0;font-weight:500;letter-spacing:-.012em;}
   .row .m{
     color:var(--muted);font-size:11.5px;letter-spacing:.04em;
@@ -118,11 +137,16 @@
   .study-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media (max-width:620px){ .study-grid{grid-template-columns:1fr;} }
   .study-grid figure{margin:0;}
+  .study-grid figure{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    overflow:hidden;padding-bottom:2px;
+  }
   .study-grid video,.study-grid img{
     width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
-    border:1px solid var(--line);border-radius:8px;background:var(--chip);
+    background:var(--chip);
   }
-  .study-grid figcaption{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.7;}
+  .study-grid figcaption{font-size:12.5px;color:var(--muted);padding:14px 18px 16px;line-height:1.75;}
 
   footer{margin-top:76px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;}
 
