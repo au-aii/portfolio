@@ -80,8 +80,12 @@
     background:color-mix(in srgb, var(--card) 76%, transparent);
     backdrop-filter:blur(10px);box-shadow:var(--shadow);
     transition:border-color .2s,transform .2s,background-color .2s;
-  }
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    }
   .hero-links a:hover{border-color:var(--muted);transform:translateY(-1px);background:var(--card);}
+  .hero-links svg {display:block;}
   .src{
     position:absolute;left:24px;right:24px;bottom:26px;max-width:660px;margin:0 auto;
     font-size:11.5px;color:var(--muted);pointer-events:auto;
@@ -147,6 +151,8 @@
     background:var(--chip);
   }
   .study-grid figcaption{font-size:12.5px;color:var(--muted);padding:14px 18px 16px;line-height:1.75;}
+  .study-grid figcaption .ref{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);text-decoration:underline;text-underline-offset:2px;opacity:.75;}
+  .study-grid figcaption .ref:hover{opacity:1;}
 
   footer{margin-top:76px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;}
 
@@ -164,12 +170,28 @@
   <div class="hero-in">
     <p class="name"><b>田中 陽輝</b><span>HARUKI TANAKA</span></p>
     <h1>概念で終わらせない。<br>人の手元で動くまで作る。</h1>
-    <p class="lead">計算は全部隠して、表には全能感だけを差し出したい。設計から運用まで一人で作り、いまは3つの部門を巻き込んで動かしています。</p>
+    <p class="lead">複製できないものに価値が戻ると思っています。だから作りたいのは、その場に行かないと得られない体験。いまは福島の大熊町で、キウイ農家の在庫管理を設計から運用まで作っています。</p>
     <div class="hero-links">
-      <a href="#work">Work</a>
-      <a href="https://zenn.dev/bur">Zenn</a>
-      <a href="https://github.com/au-aii">GitHub</a>
-      <a href="./cv.html">CV</a>
+      <a href="#work" aria-label="Work" title="Work">
+        <!-- Briefcase icon from Primer Octicons (MIT License, © GitHub Inc.) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16"><path d="M6.75 0h2.5C10.216 0 11 .784 11 1.75V3h3.25c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25v-8.5C0 3.784.784 3 1.75 3H5V1.75C5 .784 5.784 0 6.75 0ZM3.5 9.5a3.49 3.49 0 0 1-2-.627v4.377c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V8.873a3.49 3.49 0 0 1-2 .627Zm-1.75-5a.25.25 0 0 0-.25.25V6a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V4.75a.25.25 0 0 0-.25-.25H1.75ZM9.5 3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25V3Z"/></svg>
+      </a>
+      <a href="https://zenn.dev/bur" aria-label="Zenn" title="Zenn">
+        <!-- Zenn logo from Simple Icons (CC0-1.0) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 24 24"><path d="M.264 23.771h4.984c.264 0 .498-.147.645-.352L19.614.874c.176-.293-.029-.645-.381-.645h-4.72c-.235 0-.44.117-.557.323L.03 23.361c-.088.176.029.41.234.41zM17.445 23.419l6.479-10.408c.205-.323-.029-.733-.41-.733h-4.691c-.176 0-.352.088-.44.235l-6.655 10.643c-.176.264.029.616.352.616h4.779c.234-.001.468-.118.586-.353z"/></svg>
+      </a>
+      <a href="https://github.com/au-aii" aria-label="GitHub" title="GitHub">
+        <!-- GitHub mark icon from Primer Octicons (MIT License, © GitHub Inc.) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg>
+      </a>
+      <a href="mailto:tanakaharuki127@gmail.com" aria-label="Mail" title="Mail">
+        <!-- Mail icon from Primer Octicons (MIT License, © GitHub Inc.) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z"/></svg>
+      </a>
+      <a href="./cv.html" aria-label="CV" title="CV">
+        <!-- File icon from Primer Octicons (MIT License, © GitHub Inc.) -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/></svg>
+      </a>
     </div>
   </div>
   <p class="src">この背景は Thomas アトラクタの軌道です。50万粒子のフル版 → <a href="https://gaussian-thomas-attractor.vercel.app/">Gaussian Thomas Attractor</a></p>
@@ -180,6 +202,9 @@
   <section id="work">
     <h2>Work</h2>
     <ul>
+      <li><div class="row">
+        <span class="t">キウイ農家の在庫管理「きうまる」<span class="sub">福島県大熊町の農家向け。収穫から出荷までを1つの画面に。追熟の判断が人の頭にしか無い、という課題に置き換えて作った。</span><span class="facts"><span>おおくまハッカソン2026 <b>最優秀賞</b></span></span></span><span class="m">2026</span>
+      </div></li>
       <li><div class="row">
         <span class="t">リアルタイム音声AIのSaaS<span class="sub">設計・実装・運用を一人で。AIが音声で一次面接を行い、録画と評価まで自動化する。</span><span class="facts"><span><b>99</b> PR</span><span>CI <b>20</b>回連続green</span><span>壊れたデプロイを<b>7</b>回停止</span></span></span><span class="m">2025–26</span>
       </div></li>
@@ -203,7 +228,6 @@
 
   <section>
     <h2>Studies</h2>
-    <p class="studies-note">手を動かすために作ったもの。既存製品の再現とチュートリアルの模写で、企画そのものは自分のものではありません。</p>
     <div class="study-grid">
       <figure>
         <video id="study-v" poster="./assets/study-motion-poster.jpg" muted loop playsinline preload="none"></video>
@@ -211,7 +235,7 @@
       </figure>
       <figure>
         <img src="./assets/study-fanta.jpg" alt="氷に沈んだ炭酸飲料の缶を描いた3DCG" loading="lazy">
-        <figcaption>プロダクトビジュアライゼーション — Blender。氷の屈折と缶の金属反射、水滴の質感。既存製品を題材にした習作（2023）</figcaption>
+        <figcaption>プロダクトビジュアライゼーション — Blender。氷の屈折と缶の金属反射、水滴の質感。習作（2023）<a class="ref" href="https://www.youtube.com/watch?v=EfWN8XutXxI" target="_blank" rel="noopener">参考: Blender Red Bull Photorealistic Product Visualization Tutorial</a></figcaption>
       </figure>
     </div>
   </section>
