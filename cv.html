@@ -9,7 +9,7 @@
     --chip:#f1efeb;
   }
   @media (prefers-color-scheme: dark){
-    :root{--bg:#121211; --fg:#e9e8e4; --muted:#8d8a83; --line:#292826; --chip:#212120;}
+    :root{--bg:#20211f; --fg:#f3f1ec; --muted:#b9b7b0; --line:#41433e; --chip:#30322e;}
   }
   *{box-sizing:border-box;}
   body{
@@ -54,6 +54,21 @@
   .skills{display:grid;grid-template-columns:minmax(96px,120px) 1fr;gap:10px 18px;font-size:14px;}
   .skills dt{color:var(--muted);font-size:12.5px;padding-top:2px;}
   .skills dd{margin:0;}
+  .skill-details{border:1px solid var(--line);border-radius:9px;margin:0 0 9px;background:color-mix(in srgb,var(--chip) 38%,transparent);}
+  .skill-details summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;padding:11px 13px;font-weight:550;}
+  .skill-details summary::-webkit-details-marker{display:none;}
+  .skill-details summary::before{content:"＋";color:var(--muted);font-size:13px;width:14px;flex:none;}
+  .skill-details[open] summary::before{content:"−";}
+  .skill-summary{color:var(--muted);font-size:12px;font-weight:400;margin-left:auto;text-align:right;}
+  .skill-details summary:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:8px;}
+  .skill-details ul{padding:0 16px 13px 38px;margin:0;list-style:disc;color:var(--fg);}
+  .skill-details li{padding:3px 0 3px 2px;line-height:1.7;}
+  .skill-details li,.skill-details li:first-child{border:0;}
+  .skill-details li::marker{color:var(--muted);}
+  .self-pr{padding:16px 18px;border-left:2px solid var(--line);color:var(--fg);}
+  .self-pr p{margin:0;}
+  .self-pr p+p{margin-top:10px;}
+  @media(max-width:560px){.skills{grid-template-columns:1fr;gap:8px}.skills dt{padding:7px 0 0}.skill-details summary{flex-wrap:wrap}.skill-summary{width:100%;margin-left:24px;text-align:left}}
 
   a{color:var(--fg);}
   a:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
@@ -69,41 +84,28 @@
   .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 30px;}
   .toolbar .back{margin:0;}
   .tabs{display:flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:9px;}
-  .tab{border:0;background:transparent;color:var(--muted);padding:6px 13px;border-radius:6px;font:inherit;font-size:13px;cursor:pointer;}
+  .tab{border:0;background:transparent;color:var(--muted);padding:5px 10px;border-radius:5px;font:inherit;font-size:12px;cursor:pointer;}
   .tab[aria-selected="true"]{background:var(--chip);color:var(--fg);font-weight:600;}
   .tab:focus-visible,.action:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
-  .actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;}
-  .action{font:inherit;font-size:12.5px;color:var(--fg);border:1px solid var(--line);border-radius:7px;background:transparent;padding:7px 12px;text-decoration:none;cursor:pointer;}
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 28px;}
+  .action{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;font:inherit;font-size:12px;color:var(--fg);border:1px solid var(--line);border-radius:6px;background:transparent;padding:5px 9px;text-decoration:none;cursor:pointer;}
+  .action svg{display:block;flex:none;width:14px;height:14px;fill:currentColor;}
   .action:hover{background:var(--chip);}
-  .download-note{flex-basis:100%;margin:2px 0 0;color:var(--muted);font-size:12px;line-height:1.6;}
-  .pdf-preview-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px;}
-  .pdf-preview-header h2{margin:0;}
-  .pdf-preview-header a{font-size:12.5px;white-space:nowrap;}
-  .pdf-preview{width:100%;height:min(82vh,900px);min-height:520px;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:8px;background:#e9e8e4;}
-  .pdf-page{position:relative;margin:0 auto 12px;background:#fff;box-shadow:0 1px 6px #0002;--total-scale-factor:var(--scale-factor);}
-  .pdf-page:last-child{margin-bottom:0;}
-  .pdf-page canvas{display:block;width:100%;height:100%;}
-  .textLayer{position:absolute;inset:0;overflow:clip;line-height:1;text-align:initial;letter-spacing:normal;word-spacing:normal;text-size-adjust:none;transform-origin:0 0;z-index:1;--min-font-size:1;--min-font-size-inv:1;--text-scale-factor:calc(var(--total-scale-factor) * var(--min-font-size));}
-  .textLayer :is(span,br){color:transparent;position:absolute;white-space:pre;cursor:text;transform-origin:0% 0%;user-select:text;}
-  .textLayer > :not(.markedContent),.textLayer .markedContent span:not(.markedContent){--font-height:0;font-size:calc(var(--text-scale-factor) * var(--font-height));--scale-x:1;--rotate:0deg;transform:rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));}
-  .textLayer .markedContent{display:contents;}
-  .textLayer ::selection{background:rgb(0 100 255 / .28);color:transparent;}
-  .preview-note{color:var(--muted);font-size:12px;margin:8px 0 0;}
-  .details-title{margin-top:48px;}
+  .action-primary{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600;}
+  .action-primary:hover{background:color-mix(in srgb,var(--fg) 88%,var(--bg));border-color:color-mix(in srgb,var(--fg) 88%,var(--bg));}
   [hidden]{display:none !important;}
-  @media print{.toolbar,.actions,.pdf-section,.details-title{display:none !important;}.cv-panel[hidden]{display:none !important;}section{break-inside:avoid;}a{text-decoration:none;}}
+  @media print{.toolbar,.actions{display:none !important;}.cv-panel[hidden]{display:none !important;}section{break-inside:avoid;}a{text-decoration:none;}}
 </style></head>
 <body><div class="wrap">
   <div class="toolbar"><a class="back" href="./">← Portfolio</a><div class="tabs" role="tablist" aria-label="Language"><button class="tab" id="tab-ja" type="button" role="tab" aria-controls="panel-ja" aria-selected="true">日本語</button><button class="tab" id="tab-en" type="button" role="tab" aria-controls="panel-en" aria-selected="false">English</button></div></div>
-  <div class="actions"><button class="action" id="copy" type="button">CVをコピー</button><a class="action" id="download-pdf" href="./cv-ja.pdf" download>履歴書PDFをダウンロード</a><a class="action" id="download-word" href="./cv-ja.docx" download>履歴書Wordをダウンロード</a><p class="download-note" id="note-ja">PDFは<a href="https://jsite.mhlw.go.jp/tochigi-roudoukyoku/newpage_01671.html">厚生労働省の履歴書様式例（A4）</a>に記入したものです。Wordは同じ項目順の編集用です。連絡先などの個人情報と応募先ごとの希望欄は空欄にしています。</p></div>
+  <!-- Icons from Primer Octicons (MIT License, © GitHub Inc.) -->
+  <div class="actions">
+    <a class="action action-primary" id="open-pdf" href="./cv-ja.pdf" target="_blank" rel="noopener"><span class="action-label">履歴書PDFを見る</span></a>
+    <button class="action" id="copy" type="button"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg><span class="action-label">CVをコピー</span></button>
+    <a class="action" id="download-word" href="./cv-ja.docx" download><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/></svg><span class="action-label">履歴書Wordをダウンロード</span></a>
+  </div>
   <span id="copy-status" role="status" aria-live="polite" style="position:absolute;left:-9999px"></span>
 <div class="cv-panel" id="panel-ja" role="tabpanel" aria-labelledby="tab-ja" lang="ja">
-<section class="pdf-section" aria-label="日本語の履歴書PDFプレビュー">
-<div class="pdf-preview-header"><h2>履歴書プレビュー</h2><a href="./cv-ja.pdf" target="_blank" rel="noopener">PDFを大きく開く</a></div>
-<div class="pdf-preview" id="preview-ja" role="region" aria-label="日本語の履歴書PDF。文字を選択できます">PDFを読み込み中…</div>
-<p class="preview-note">プレビュー内の文字を選択できます。表示されない場合は「PDFを大きく開く」からご覧ください。</p>
-</section>
-<h2 class="details-title">経歴テキスト</h2>
 <header>
 <h1>田中 陽輝</h1>
 <p class="en">HARUKI TANAKA</p>
@@ -177,20 +179,59 @@
 </ul>
 </section>
 <section>
+<h2>自己PR</h2>
+<div class="self-pr">
+<p>依頼された機能をそのまま作るだけでなく、使う人の作業を観察して、続けて使える流れに組み直すことを大切にしています。きうまるでは、在庫の可視化だけでなく、記録が残らない課題に着目し、音声入力と日付の自動処理を含む運用を設計しました。</p>
+<p>Python・TypeScriptで音声AIやWebアプリを実装し、GitHub Actionsとクラウド基盤で継続的に確かめられる形にします。KAIROS-XではUE5とPythonの音声処理をつなぐ試作にも取り組みました。課題の発見から実装、運用での検証までをつなげて進めます。</p>
+</div>
+</section>
+<section>
 <h2>スキル</h2>
 <dl class="skills">
-<dt>言語</dt>
-<dd>TypeScript / Python / Swift / GLSL</dd>
-<dt>AI・LLM</dt>
-<dd>Gemini Live（リアルタイム音声）/ Vertex AI / Claude API（Tool Use）/ ローカルLLM / NVIDIA ACE</dd>
-<dt>クラウド</dt>
-<dd>Google Cloud（Cloud Run / Pub/Sub / Cloud SQL / Cloud Functions / GCS）/ Terraform / GitHub Actions / Firebase</dd>
-<dt>グラフィックス</dt>
-<dd>Three.js / WebGL / 自作GLSLシェーダー / Unreal Engine 5 / Blender</dd>
-<dt>フレームワーク</dt>
-<dd>React / FastAPI / SwiftUI</dd>
-<dt>その他</dt>
-<dd>設計判断のADR文書化 / CI・CD・IaCの整備 / 部門横断のプロジェクト推進</dd>
+<dt>実装・基盤</dt>
+<dd>
+<details class="skill-details"><summary>Python <span class="skill-summary">FastAPI・音声AI連携・非同期処理</span></summary><ul>
+<li>FastAPIを使い、Webアプリから利用するAPIとバックエンドを実装。</li>
+<li>音声入力からAI機能へつなぐ処理を組み、アプリ間のデータ連携を実装。</li>
+<li>時間のかかる音声認識などを非同期に扱い、応答待ちが画面操作を塞がない構成にした。</li>
+<li>KAIROS-XではPython側の音声処理とUE5をOSC等で接続する試作に取り組んだ。</li>
+<li>Whisperの音声認識サービスをコンテナ経由で呼び出す構成を扱った。</li>
+<li>API境界を分け、フロントエンドや音声処理の変更が連鎖しにくい形を意識。</li>
+</ul></details>
+<details class="skill-details"><summary>TypeScript <span class="skill-summary">React・画面実装・API連携</span></summary><ul>
+<li>ReactとTypeScriptでWebアプリの画面とユーザー操作を実装。</li>
+<li>画面からバックエンドAPIを呼び出し、応答を画面状態へ反映。</li>
+<li>入力、読み込み中、成功・失敗など状態ごとの表示を整理。</li>
+<li>音声AI機能を画面に組み込み、マイク操作とAI応答の流れを接続。</li>
+<li>型定義をAPIデータと画面状態に使い、値の受け渡しを明確化。</li>
+<li>機能追加時は既存コンポーネントと画面遷移に合わせて変更。</li>
+</ul></details>
+<details class="skill-details"><summary>GitHub Actions <span class="skill-summary">CI・PR運用・デプロイ保護</span></summary><ul>
+<li>Pull Requestを起点にした自動チェックを整備し、変更をレビュー可能な単位で進行。</li>
+<li>テストやビルド結果をマージ前に確認できるCIの運用を担当。</li>
+<li>直近20回のCI実行を連続で成功させ、変更を継続的に検証。</li>
+<li>不正な状態のデプロイを7回検知して停止し、壊れた版の公開を防いだ。</li>
+<li>99件のPull Requestを通じて、変更履歴と判断を追える形を維持。</li>
+<li>CI結果や運用上の問題をもとに、ワークフローを見直している。</li>
+</ul></details>
+<details class="skill-details"><summary>Cloud Infra <span class="skill-summary">Google Cloud・Terraform・運用</span></summary><ul>
+<li>Google Cloud上でCloud Runを使ったアプリケーション実行基盤を構成。</li>
+<li>Pub/Subによる非同期メッセージ連携、Cloud SQLによるデータ保存を扱った。</li>
+<li>Cloud FunctionsとCloud Storageを組み合わせた処理・ファイル連携を実装。</li>
+<li>Terraformでインフラ設定をコードとして管理し、変更をレビューできる形にした。</li>
+<li>GitHub ActionsのCI/CDとつなぎ、デプロイ前に変更を検証。</li>
+<li>稼働後の問題も追い、失敗するデプロイを公開前に止める運用を行った。</li>
+</ul></details>
+<details class="skill-details"><summary>Unreal Engine <span class="skill-summary">KAIROS-X・授業制作・Blender</span></summary><ul>
+<li>KAIROS-XでUE5上のリアルタイムDigital Humanの対話体験を試作。</li>
+<li>音声入力、ローカルLLM、NVIDIA ACE / Audio2Faceを組み合わせる構成を扱った。</li>
+<li>Python側の音声処理とUE5の間をOSCでつなぎ、コンポーネント間の連携を試した。</li>
+<li>授業では既存アセットを使ったランドスケープ制作、テクスチャ変更を実施。</li>
+<li>基本的な物理演算とインタラクションの仕組みを制作。</li>
+<li>Blenderでモデリングとライティングを行い、3Dシーンを構成。</li>
+</ul></details>
+<p class="note">その他：Swift / GLSL / Three.js / WebGL / Firebase / 設計判断のADR文書化 / 部門横断のプロジェクト推進</p>
+</dd>
 </dl>
 </section>
 <section>
@@ -198,14 +239,8 @@
 <ul><li><div class="row"><span class="y">2026</span>
 <span class="t"><a href="https://zenn.dev/bur">Zenn で技術記事を公開</a><span class="note">Agentic AI の本番運用設計、音声AI向けFAQナレッジの作り方、生成AIの作話インシデントの一次記録など。</span></span></div></li></ul>
 </section>
-<footer>最終更新 2026年10月 ／ ご連絡は GitHub または Zenn 経由でお願いします。 <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
+<footer>最終更新 2026年10月 ／ <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
 </div><div class="cv-panel" id="panel-en" role="tabpanel" aria-labelledby="tab-en" lang="en" hidden>
-<section class="pdf-section" aria-label="English CV PDF preview">
-<div class="pdf-preview-header"><h2>PDF preview</h2><a href="./cv-en.pdf" target="_blank" rel="noopener">Open full PDF</a></div>
-<div class="pdf-preview" id="preview-en" role="region" aria-label="English CV PDF with selectable text">Loading PDF…</div>
-<p class="preview-note">Select text in the preview, or open the PDF in a new tab for a larger view.</p>
-</section>
-<h2 class="details-title">CV text</h2>
 <header>
 <h1>Haruki Tanaka</h1>
 <p class="en">田中 陽輝</p>
@@ -279,20 +314,59 @@
 </ul>
 </section>
 <section>
+<h2>Professional Profile</h2>
+<div class="self-pr">
+<p>I start by understanding how people actually work, then shape the solution into a flow they can keep using. For Kiumaru, I looked beyond inventory visibility to the missing-record problem and designed an operating flow that includes voice input and automatic date handling.</p>
+<p>I build voice AI and web applications with Python and TypeScript, then use CI and cloud infrastructure to keep validating them. In KAIROS-X, I also prototyped a connection between UE5 and Python-based voice processing. I work across problem discovery, implementation, and operational validation.</p>
+</div>
+</section>
+<section>
 <h2>Skills</h2>
 <dl class="skills">
-<dt>Languages</dt>
-<dd>TypeScript / Python / Swift / GLSL</dd>
-<dt>AI and LLMs</dt>
-<dd>Gemini Live (real time voice) / Vertex AI / Claude API (Tool Use) / Local LLMs / NVIDIA ACE</dd>
-<dt>Cloud</dt>
-<dd>Google Cloud (Cloud Run / Pub/Sub / Cloud SQL / Cloud Functions / GCS) / Terraform / GitHub Actions / Firebase</dd>
-<dt>Graphics</dt>
-<dd>Three.js / WebGL / Custom GLSL shaders / Unreal Engine 5 / Blender</dd>
-<dt>Frameworks</dt>
-<dd>React / FastAPI / SwiftUI</dd>
-<dt>Other</dt>
-<dd>Architecture decision records / CI, CD, and IaC / Cross functional project leadership</dd>
+<dt>Engineering</dt>
+<dd>
+<details class="skill-details"><summary>Python <span class="skill-summary">FastAPI, voice AI, asynchronous processing</span></summary><ul>
+<li>Built APIs and backend services for web applications with FastAPI.</li>
+<li>Connected voice input flows to AI features and implemented data exchange between components.</li>
+<li>Handled latency-heavy work such as speech recognition asynchronously to keep request flows responsive.</li>
+<li>For KAIROS-X, prototyped OSC communication between Python voice processing and UE5.</li>
+<li>Worked with a containerized Whisper speech-recognition service.</li>
+<li>Kept API boundaries clear so frontend and voice-processing changes could evolve independently.</li>
+</ul></details>
+<details class="skill-details"><summary>TypeScript <span class="skill-summary">React, UI, API integration</span></summary><ul>
+<li>Built web application interfaces and user interactions with React and TypeScript.</li>
+<li>Connected frontend screens to backend APIs and reflected responses in application state.</li>
+<li>Organized loading, success, error, and input states for clear user feedback.</li>
+<li>Integrated voice AI features, connecting microphone actions with AI responses.</li>
+<li>Used types for API data and UI state to make data flow explicit.</li>
+<li>Extended existing components and navigation patterns when adding features.</li>
+</ul></details>
+<details class="skill-details"><summary>GitHub Actions <span class="skill-summary">CI, pull requests, deployment safeguards</span></summary><ul>
+<li>Set up automated checks triggered by pull requests and worked in reviewable increments.</li>
+<li>Used CI results from tests and builds to validate changes before merge.</li>
+<li>Achieved 20 consecutive successful recent CI runs.</li>
+<li>Detected and stopped seven invalid deployments before release.</li>
+<li>Maintained traceable changes and decisions across 99 pull requests.</li>
+<li>Continue to improve workflows based on CI results and operational issues.</li>
+</ul></details>
+<details class="skill-details"><summary>Cloud Infrastructure <span class="skill-summary">Google Cloud, Terraform, operations</span></summary><ul>
+<li>Configured application runtime on Google Cloud with Cloud Run.</li>
+<li>Worked with Pub/Sub for asynchronous messaging and Cloud SQL for persistence.</li>
+<li>Implemented processing and file workflows using Cloud Functions and Cloud Storage.</li>
+<li>Managed infrastructure configuration as code with Terraform so changes could be reviewed.</li>
+<li>Connected infrastructure workflows with GitHub Actions CI/CD checks.</li>
+<li>Monitored issues after release and stopped failing deployments before publication.</li>
+</ul></details>
+<details class="skill-details"><summary>Unreal Engine <span class="skill-summary">KAIROS-X, coursework, Blender</span></summary><ul>
+<li>Prototyped a real-time digital human interaction experience in UE5 for KAIROS-X.</li>
+<li>Worked with a setup combining voice input, a local LLM, and NVIDIA ACE / Audio2Face.</li>
+<li>Tested OSC communication between Python voice processing and UE5.</li>
+<li>For coursework, created an asset-based landscape and changed textures.</li>
+<li>Built basic physics and interaction mechanics.</li>
+<li>Modeled and lit 3D scenes in Blender.</li>
+</ul></details>
+<p class="note">Also: Swift / GLSL / Three.js / WebGL / Firebase / architecture decision records / cross-functional project leadership</p>
+</dd>
 </dl>
 </section>
 <section>
@@ -300,15 +374,14 @@
 <ul><li><div class="row"><span class="y">2026</span>
 <span class="t"><a href="https://zenn.dev/bur">Technical articles on Zenn</a><span class="note">Topics include production design for agentic AI, FAQ knowledge for voice AI, and a firsthand account of an AI confabulation incident.</span></span></div></li></ul>
 </section>
-<footer>Updated October 2026 ／ Contact via GitHub or Zenn. <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
+<footer>Updated October 2026 ／ <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
 </div></div>
 <script>
   let active='ja';
-  function setLanguage(lang){active=lang;document.documentElement.lang=lang;for(const code of ['ja','en']){document.getElementById('panel-'+code).hidden=code!==lang;document.getElementById('tab-'+code).setAttribute('aria-selected',String(code===lang));}document.getElementById('copy').textContent=lang==='ja'?'CVをコピー':'Copy CV';document.getElementById('download-pdf').textContent=lang==='ja'?'履歴書PDFをダウンロード':'Download PDF';document.getElementById('download-pdf').href='./cv-'+lang+'.pdf';document.getElementById('download-word').textContent=lang==='ja'?'履歴書Wordをダウンロード':'Download Word';document.getElementById('download-word').href='./cv-'+lang+'.docx';document.getElementById('note-ja').hidden=lang!=='ja';document.dispatchEvent(new CustomEvent('cv-language-change',{detail:lang}));}
+  function setLanguage(lang){active=lang;document.documentElement.lang=lang;for(const code of ['ja','en']){document.getElementById('panel-'+code).hidden=code!==lang;document.getElementById('tab-'+code).setAttribute('aria-selected',String(code===lang));}document.querySelector('#copy .action-label').textContent=lang==='ja'?'CVをコピー':'Copy CV';document.querySelector('#open-pdf .action-label').textContent=lang==='ja'?'履歴書PDFを見る':'Open PDF';document.getElementById('open-pdf').href='./cv-'+lang+'.pdf';document.querySelector('#download-word .action-label').textContent=lang==='ja'?'履歴書Wordをダウンロード':'Download Word';document.getElementById('download-word').href='./cv-'+lang+'.docx';document.dispatchEvent(new CustomEvent('cv-language-change',{detail:lang}));}
   document.getElementById('tab-ja').addEventListener('click',()=>setLanguage('ja'));
   document.getElementById('tab-en').addEventListener('click',()=>setLanguage('en'));
-  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const text=Array.from(panel.querySelectorAll('header, section:not(.pdf-section), footer')).map(element=>element.innerText.trim()).join('\n\n');try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.getElementById('copy').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.getElementById('copy').textContent=message;}});
+  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const clone=panel.cloneNode(true);clone.querySelectorAll('details').forEach(details=>details.open=true);clone.removeAttribute('hidden');clone.style.cssText='position:fixed;left:-10000px;top:0;width:660px;';document.body.appendChild(clone);const text=Array.from(clone.querySelectorAll('header, section, footer')).map(element=>element.innerText.trim()).join('\n\n');clone.remove();try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}});
   document.querySelector('.tabs').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=active==='ja'?'en':'ja';setLanguage(next);document.getElementById('tab-'+next).focus();});
 </script>
-<script type="module" src="./assets/cv-preview.mjs"></script>
 </body></html>
