@@ -90,7 +90,6 @@
   .textLayer > :not(.markedContent),.textLayer .markedContent span:not(.markedContent){--font-height:0;font-size:calc(var(--text-scale-factor) * var(--font-height));--scale-x:1;--rotate:0deg;transform:rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));}
   .textLayer .markedContent{display:contents;}
   .textLayer ::selection{background:rgb(0 100 255 / .28);color:transparent;}
-  .preview-note{color:var(--muted);font-size:13px;margin:8px 0 0;}
   .details-title{margin-top:48px;}
   [hidden]{display:none !important;}
   @media print{.toolbar,.actions,.pdf-section,.details-title{display:none !important;}.cv-panel[hidden]{display:none !important;}section{break-inside:avoid;}a{text-decoration:none;}}
@@ -108,7 +107,6 @@
 <section class="pdf-section" aria-label="日本語の履歴書PDFプレビュー">
 <div class="pdf-preview-header"><h2>履歴書プレビュー</h2><a href="./cv-ja.pdf" target="_blank" rel="noopener">PDFを大きく開く</a></div>
 <div class="pdf-preview" id="preview-ja" role="region" aria-label="日本語の履歴書PDF。文字を選択できます">PDFを読み込み中…</div>
-<p class="preview-note">プレビュー内の文字を選択できます。表示されない場合は「PDFを大きく開く」からご覧ください。</p>
 </section>
 <h2 class="details-title">経歴テキスト</h2>
 <header>
@@ -210,7 +208,6 @@
 <section class="pdf-section" aria-label="English CV PDF preview">
 <div class="pdf-preview-header"><h2>PDF preview</h2><a href="./cv-en.pdf" target="_blank" rel="noopener">Open full PDF</a></div>
 <div class="pdf-preview" id="preview-en" role="region" aria-label="English CV PDF with selectable text">Loading PDF…</div>
-<p class="preview-note">Select text in the preview, or open the PDF in a new tab for a larger view.</p>
 </section>
 <h2 class="details-title">CV text</h2>
 <header>
