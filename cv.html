@@ -54,6 +54,21 @@
   .skills{display:grid;grid-template-columns:minmax(96px,120px) 1fr;gap:10px 18px;font-size:14px;}
   .skills dt{color:var(--muted);font-size:12.5px;padding-top:2px;}
   .skills dd{margin:0;}
+  .skill-details{border:1px solid var(--line);border-radius:9px;margin:0 0 9px;background:color-mix(in srgb,var(--chip) 38%,transparent);}
+  .skill-details summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;padding:11px 13px;font-weight:550;}
+  .skill-details summary::-webkit-details-marker{display:none;}
+  .skill-details summary::before{content:"＋";color:var(--muted);font-size:13px;width:14px;flex:none;}
+  .skill-details[open] summary::before{content:"−";}
+  .skill-summary{color:var(--muted);font-size:12px;font-weight:400;margin-left:auto;text-align:right;}
+  .skill-details summary:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-radius:8px;}
+  .skill-details ul{padding:0 16px 13px 38px;margin:0;list-style:disc;color:var(--fg);}
+  .skill-details li{padding:3px 0 3px 2px;line-height:1.7;}
+  .skill-details li,.skill-details li:first-child{border:0;}
+  .skill-details li::marker{color:var(--muted);}
+  .self-pr{padding:16px 18px;border-left:2px solid var(--line);color:var(--fg);}
+  .self-pr p{margin:0;}
+  .self-pr p+p{margin-top:10px;}
+  @media(max-width:560px){.skills{grid-template-columns:1fr;gap:8px}.skills dt{padding:7px 0 0}.skill-details summary{flex-wrap:wrap}.skill-summary{width:100%;margin-left:24px;text-align:left}}
 
   a{color:var(--fg);}
   a:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
@@ -164,20 +179,59 @@
 </ul>
 </section>
 <section>
+<h2>自己PR</h2>
+<div class="self-pr">
+<p>依頼された機能をそのまま作るだけでなく、使う人の作業を観察して、続けて使える流れに組み直すことを大切にしています。きうまるでは、在庫の可視化だけでなく、記録が残らない課題に着目し、音声入力と日付の自動処理を含む運用を設計しました。</p>
+<p>Python・TypeScriptで音声AIやWebアプリを実装し、GitHub Actionsとクラウド基盤で継続的に確かめられる形にします。KAIROS-XではUE5とPythonの音声処理をつなぐ試作にも取り組みました。課題の発見から実装、運用での検証までをつなげて進めます。</p>
+</div>
+</section>
+<section>
 <h2>スキル</h2>
 <dl class="skills">
-<dt>言語</dt>
-<dd>TypeScript / Python / Swift / GLSL</dd>
-<dt>AI・LLM</dt>
-<dd>Gemini Live（リアルタイム音声）/ Vertex AI / Claude API（Tool Use）/ ローカルLLM / NVIDIA ACE</dd>
-<dt>クラウド</dt>
-<dd>Google Cloud（Cloud Run / Pub/Sub / Cloud SQL / Cloud Functions / GCS）/ Terraform / GitHub Actions / Firebase</dd>
-<dt>グラフィックス</dt>
-<dd>Three.js / WebGL / 自作GLSLシェーダー / Unreal Engine 5 / Blender</dd>
-<dt>フレームワーク</dt>
-<dd>React / FastAPI / SwiftUI</dd>
-<dt>その他</dt>
-<dd>設計判断のADR文書化 / CI・CD・IaCの整備 / 部門横断のプロジェクト推進</dd>
+<dt>実装・基盤</dt>
+<dd>
+<details class="skill-details"><summary>Python <span class="skill-summary">FastAPI・音声AI連携・非同期処理</span></summary><ul>
+<li>FastAPIを使い、Webアプリから利用するAPIとバックエンドを実装。</li>
+<li>音声入力からAI機能へつなぐ処理を組み、アプリ間のデータ連携を実装。</li>
+<li>時間のかかる音声認識などを非同期に扱い、応答待ちが画面操作を塞がない構成にした。</li>
+<li>KAIROS-XではPython側の音声処理とUE5をOSC等で接続する試作に取り組んだ。</li>
+<li>Whisperの音声認識サービスをコンテナ経由で呼び出す構成を扱った。</li>
+<li>API境界を分け、フロントエンドや音声処理の変更が連鎖しにくい形を意識。</li>
+</ul></details>
+<details class="skill-details"><summary>TypeScript <span class="skill-summary">React・画面実装・API連携</span></summary><ul>
+<li>ReactとTypeScriptでWebアプリの画面とユーザー操作を実装。</li>
+<li>画面からバックエンドAPIを呼び出し、応答を画面状態へ反映。</li>
+<li>入力、読み込み中、成功・失敗など状態ごとの表示を整理。</li>
+<li>音声AI機能を画面に組み込み、マイク操作とAI応答の流れを接続。</li>
+<li>型定義をAPIデータと画面状態に使い、値の受け渡しを明確化。</li>
+<li>機能追加時は既存コンポーネントと画面遷移に合わせて変更。</li>
+</ul></details>
+<details class="skill-details"><summary>GitHub Actions <span class="skill-summary">CI・PR運用・デプロイ保護</span></summary><ul>
+<li>Pull Requestを起点にした自動チェックを整備し、変更をレビュー可能な単位で進行。</li>
+<li>テストやビルド結果をマージ前に確認できるCIの運用を担当。</li>
+<li>直近20回のCI実行を連続で成功させ、変更を継続的に検証。</li>
+<li>不正な状態のデプロイを7回検知して停止し、壊れた版の公開を防いだ。</li>
+<li>99件のPull Requestを通じて、変更履歴と判断を追える形を維持。</li>
+<li>CI結果や運用上の問題をもとに、ワークフローを見直している。</li>
+</ul></details>
+<details class="skill-details"><summary>Cloud Infra <span class="skill-summary">Google Cloud・Terraform・運用</span></summary><ul>
+<li>Google Cloud上でCloud Runを使ったアプリケーション実行基盤を構成。</li>
+<li>Pub/Subによる非同期メッセージ連携、Cloud SQLによるデータ保存を扱った。</li>
+<li>Cloud FunctionsとCloud Storageを組み合わせた処理・ファイル連携を実装。</li>
+<li>Terraformでインフラ設定をコードとして管理し、変更をレビューできる形にした。</li>
+<li>GitHub ActionsのCI/CDとつなぎ、デプロイ前に変更を検証。</li>
+<li>稼働後の問題も追い、失敗するデプロイを公開前に止める運用を行った。</li>
+</ul></details>
+<details class="skill-details"><summary>Unreal Engine <span class="skill-summary">KAIROS-X・授業制作・Blender</span></summary><ul>
+<li>KAIROS-XでUE5上のリアルタイムDigital Humanの対話体験を試作。</li>
+<li>音声入力、ローカルLLM、NVIDIA ACE / Audio2Faceを組み合わせる構成を扱った。</li>
+<li>Python側の音声処理とUE5の間をOSCでつなぎ、コンポーネント間の連携を試した。</li>
+<li>授業では既存アセットを使ったランドスケープ制作、テクスチャ変更を実施。</li>
+<li>基本的な物理演算とインタラクションの仕組みを制作。</li>
+<li>Blenderでモデリングとライティングを行い、3Dシーンを構成。</li>
+</ul></details>
+<p class="note">その他：Swift / GLSL / Three.js / WebGL / Firebase / 設計判断のADR文書化 / 部門横断のプロジェクト推進</p>
+</dd>
 </dl>
 </section>
 <section>
@@ -260,20 +314,59 @@
 </ul>
 </section>
 <section>
+<h2>Professional Profile</h2>
+<div class="self-pr">
+<p>I start by understanding how people actually work, then shape the solution into a flow they can keep using. For Kiumaru, I looked beyond inventory visibility to the missing-record problem and designed an operating flow that includes voice input and automatic date handling.</p>
+<p>I build voice AI and web applications with Python and TypeScript, then use CI and cloud infrastructure to keep validating them. In KAIROS-X, I also prototyped a connection between UE5 and Python-based voice processing. I work across problem discovery, implementation, and operational validation.</p>
+</div>
+</section>
+<section>
 <h2>Skills</h2>
 <dl class="skills">
-<dt>Languages</dt>
-<dd>TypeScript / Python / Swift / GLSL</dd>
-<dt>AI and LLMs</dt>
-<dd>Gemini Live (real time voice) / Vertex AI / Claude API (Tool Use) / Local LLMs / NVIDIA ACE</dd>
-<dt>Cloud</dt>
-<dd>Google Cloud (Cloud Run / Pub/Sub / Cloud SQL / Cloud Functions / GCS) / Terraform / GitHub Actions / Firebase</dd>
-<dt>Graphics</dt>
-<dd>Three.js / WebGL / Custom GLSL shaders / Unreal Engine 5 / Blender</dd>
-<dt>Frameworks</dt>
-<dd>React / FastAPI / SwiftUI</dd>
-<dt>Other</dt>
-<dd>Architecture decision records / CI, CD, and IaC / Cross functional project leadership</dd>
+<dt>Engineering</dt>
+<dd>
+<details class="skill-details"><summary>Python <span class="skill-summary">FastAPI, voice AI, asynchronous processing</span></summary><ul>
+<li>Built APIs and backend services for web applications with FastAPI.</li>
+<li>Connected voice input flows to AI features and implemented data exchange between components.</li>
+<li>Handled latency-heavy work such as speech recognition asynchronously to keep request flows responsive.</li>
+<li>For KAIROS-X, prototyped OSC communication between Python voice processing and UE5.</li>
+<li>Worked with a containerized Whisper speech-recognition service.</li>
+<li>Kept API boundaries clear so frontend and voice-processing changes could evolve independently.</li>
+</ul></details>
+<details class="skill-details"><summary>TypeScript <span class="skill-summary">React, UI, API integration</span></summary><ul>
+<li>Built web application interfaces and user interactions with React and TypeScript.</li>
+<li>Connected frontend screens to backend APIs and reflected responses in application state.</li>
+<li>Organized loading, success, error, and input states for clear user feedback.</li>
+<li>Integrated voice AI features, connecting microphone actions with AI responses.</li>
+<li>Used types for API data and UI state to make data flow explicit.</li>
+<li>Extended existing components and navigation patterns when adding features.</li>
+</ul></details>
+<details class="skill-details"><summary>GitHub Actions <span class="skill-summary">CI, pull requests, deployment safeguards</span></summary><ul>
+<li>Set up automated checks triggered by pull requests and worked in reviewable increments.</li>
+<li>Used CI results from tests and builds to validate changes before merge.</li>
+<li>Achieved 20 consecutive successful recent CI runs.</li>
+<li>Detected and stopped seven invalid deployments before release.</li>
+<li>Maintained traceable changes and decisions across 99 pull requests.</li>
+<li>Continue to improve workflows based on CI results and operational issues.</li>
+</ul></details>
+<details class="skill-details"><summary>Cloud Infrastructure <span class="skill-summary">Google Cloud, Terraform, operations</span></summary><ul>
+<li>Configured application runtime on Google Cloud with Cloud Run.</li>
+<li>Worked with Pub/Sub for asynchronous messaging and Cloud SQL for persistence.</li>
+<li>Implemented processing and file workflows using Cloud Functions and Cloud Storage.</li>
+<li>Managed infrastructure configuration as code with Terraform so changes could be reviewed.</li>
+<li>Connected infrastructure workflows with GitHub Actions CI/CD checks.</li>
+<li>Monitored issues after release and stopped failing deployments before publication.</li>
+</ul></details>
+<details class="skill-details"><summary>Unreal Engine <span class="skill-summary">KAIROS-X, coursework, Blender</span></summary><ul>
+<li>Prototyped a real-time digital human interaction experience in UE5 for KAIROS-X.</li>
+<li>Worked with a setup combining voice input, a local LLM, and NVIDIA ACE / Audio2Face.</li>
+<li>Tested OSC communication between Python voice processing and UE5.</li>
+<li>For coursework, created an asset-based landscape and changed textures.</li>
+<li>Built basic physics and interaction mechanics.</li>
+<li>Modeled and lit 3D scenes in Blender.</li>
+</ul></details>
+<p class="note">Also: Swift / GLSL / Three.js / WebGL / Firebase / architecture decision records / cross-functional project leadership</p>
+</dd>
 </dl>
 </section>
 <section>
@@ -288,7 +381,7 @@
   function setLanguage(lang){active=lang;document.documentElement.lang=lang;for(const code of ['ja','en']){document.getElementById('panel-'+code).hidden=code!==lang;document.getElementById('tab-'+code).setAttribute('aria-selected',String(code===lang));}document.querySelector('#copy .action-label').textContent=lang==='ja'?'CVをコピー':'Copy CV';document.querySelector('#open-pdf .action-label').textContent=lang==='ja'?'履歴書PDFを見る':'Open PDF';document.getElementById('open-pdf').href='./cv-'+lang+'.pdf';document.querySelector('#download-word .action-label').textContent=lang==='ja'?'履歴書Wordをダウンロード':'Download Word';document.getElementById('download-word').href='./cv-'+lang+'.docx';document.dispatchEvent(new CustomEvent('cv-language-change',{detail:lang}));}
   document.getElementById('tab-ja').addEventListener('click',()=>setLanguage('ja'));
   document.getElementById('tab-en').addEventListener('click',()=>setLanguage('en'));
-  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const text=Array.from(panel.querySelectorAll('header, section, footer')).map(element=>element.innerText.trim()).join('\n\n');try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}});
+  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const clone=panel.cloneNode(true);clone.querySelectorAll('details').forEach(details=>details.open=true);clone.removeAttribute('hidden');clone.style.cssText='position:fixed;left:-10000px;top:0;width:660px;';document.body.appendChild(clone);const text=Array.from(clone.querySelectorAll('header, section, footer')).map(element=>element.innerText.trim()).join('\n\n');clone.remove();try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}});
   document.querySelector('.tabs').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=active==='ja'?'en':'ja';setLanguage(next);document.getElementById('tab-'+next).focus();});
 </script>
 </body></html>
