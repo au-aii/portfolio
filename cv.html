@@ -74,13 +74,13 @@
   .tab:focus-visible,.action:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
   .actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 32px;}
   .action{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;font:inherit;font-size:13px;color:var(--fg);border:1px solid var(--line);border-radius:7px;background:transparent;padding:7px 12px;text-decoration:none;cursor:pointer;}
-  .action svg,.pdf-preview-header svg{display:block;flex:none;width:16px;height:16px;fill:currentColor;}
+  .action svg{display:block;flex:none;width:16px;height:16px;fill:currentColor;}
   .action:hover{background:var(--chip);}
   .action-primary{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600;}
   .action-primary:hover{background:color-mix(in srgb,var(--fg) 88%,var(--bg));border-color:color-mix(in srgb,var(--fg) 88%,var(--bg));}
   .pdf-preview-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px;}
   .pdf-preview-header h2{margin:0;}
-  .pdf-preview-header a{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;white-space:nowrap;}
+  .pdf-preview-header a{font-size:12.5px;white-space:nowrap;}
   .pdf-preview{width:100%;height:min(82vh,900px);min-height:520px;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--preview);}
   .pdf-page{position:relative;margin:0 auto 12px;background:#fff;box-shadow:0 1px 6px #0002;--total-scale-factor:var(--scale-factor);}
   .pdf-page:last-child{margin-bottom:0;}
@@ -106,7 +106,7 @@
   <span id="copy-status" role="status" aria-live="polite" style="position:absolute;left:-9999px"></span>
 <div class="cv-panel" id="panel-ja" role="tabpanel" aria-labelledby="tab-ja" lang="ja">
 <section class="pdf-section" aria-label="日本語の履歴書PDFプレビュー">
-<div class="pdf-preview-header"><h2>履歴書プレビュー</h2><a href="./cv-ja.pdf" target="_blank" rel="noopener">PDFを大きく開く<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.25 4a.25.25 0 0 0-.25.25v9a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h.75V4.25c0-.966.784-1.75 1.75-1.75h9.5c.966 0 1.75.784 1.75 1.75v8.25h.75a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75v-9a.25.25 0 0 0-.25-.25h-9.5Z"/><path d="m7.97 7.97-2.75 2.75a.75.75 0 1 0 1.06 1.06l2.75-2.75 1.543 1.543a.25.25 0 0 0 .427-.177V6.25a.25.25 0 0 0-.25-.25H6.604a.25.25 0 0 0-.177.427L7.97 7.97Z"/></svg></a></div>
+<div class="pdf-preview-header"><h2>履歴書プレビュー</h2><a href="./cv-ja.pdf" target="_blank" rel="noopener">PDFを大きく開く</a></div>
 <div class="pdf-preview" id="preview-ja" role="region" aria-label="日本語の履歴書PDF。文字を選択できます">PDFを読み込み中…</div>
 <p class="preview-note">プレビュー内の文字を選択できます。表示されない場合は「PDFを大きく開く」からご覧ください。</p>
 </section>
@@ -208,7 +208,7 @@
 <footer>最終更新 2026年10月 ／ ご連絡は GitHub または Zenn 経由でお願いします。 <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
 </div><div class="cv-panel" id="panel-en" role="tabpanel" aria-labelledby="tab-en" lang="en" hidden>
 <section class="pdf-section" aria-label="English CV PDF preview">
-<div class="pdf-preview-header"><h2>PDF preview</h2><a href="./cv-en.pdf" target="_blank" rel="noopener">Open full PDF<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.25 4a.25.25 0 0 0-.25.25v9a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h.75V4.25c0-.966.784-1.75 1.75-1.75h9.5c.966 0 1.75.784 1.75 1.75v8.25h.75a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75v-9a.25.25 0 0 0-.25-.25h-9.5Z"/><path d="m7.97 7.97-2.75 2.75a.75.75 0 1 0 1.06 1.06l2.75-2.75 1.543 1.543a.25.25 0 0 0 .427-.177V6.25a.25.25 0 0 0-.25-.25H6.604a.25.25 0 0 0-.177.427L7.97 7.97Z"/></svg></a></div>
+<div class="pdf-preview-header"><h2>PDF preview</h2><a href="./cv-en.pdf" target="_blank" rel="noopener">Open full PDF</a></div>
 <div class="pdf-preview" id="preview-en" role="region" aria-label="English CV PDF with selectable text">Loading PDF…</div>
 <p class="preview-note">Select text in the preview, or open the PDF in a new tab for a larger view.</p>
 </section>
