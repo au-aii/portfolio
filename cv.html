@@ -6,10 +6,10 @@
 <style>
   :root{
     --bg:#faf9f7; --fg:#171614; --muted:#6b6862; --line:#e5e3de;
-    --chip:#f1efeb; --preview:#e9e8e4;
+    --chip:#f1efeb;
   }
   @media (prefers-color-scheme: dark){
-    :root{--bg:#20211f; --fg:#f3f1ec; --muted:#b9b7b0; --line:#41433e; --chip:#30322e; --preview:#30322e;}
+    :root{--bg:#20211f; --fg:#f3f1ec; --muted:#b9b7b0; --line:#41433e; --chip:#30322e;}
   }
   *{box-sizing:border-box;}
   body{
@@ -69,46 +69,28 @@
   .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 30px;}
   .toolbar .back{margin:0;}
   .tabs{display:flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:9px;}
-  .tab{border:0;background:transparent;color:var(--muted);padding:6px 13px;border-radius:6px;font:inherit;font-size:13px;cursor:pointer;}
+  .tab{border:0;background:transparent;color:var(--muted);padding:5px 10px;border-radius:5px;font:inherit;font-size:12px;cursor:pointer;}
   .tab[aria-selected="true"]{background:var(--chip);color:var(--fg);font-weight:600;}
   .tab:focus-visible,.action:focus-visible{outline:2px solid var(--fg);outline-offset:2px;}
-  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 32px;}
-  .action{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;font:inherit;font-size:13px;color:var(--fg);border:1px solid var(--line);border-radius:7px;background:transparent;padding:7px 12px;text-decoration:none;cursor:pointer;}
-  .action svg{display:block;flex:none;width:16px;height:16px;fill:currentColor;}
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 28px;}
+  .action{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;font:inherit;font-size:12px;color:var(--fg);border:1px solid var(--line);border-radius:6px;background:transparent;padding:5px 9px;text-decoration:none;cursor:pointer;}
+  .action svg{display:block;flex:none;width:14px;height:14px;fill:currentColor;}
   .action:hover{background:var(--chip);}
   .action-primary{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600;}
   .action-primary:hover{background:color-mix(in srgb,var(--fg) 88%,var(--bg));border-color:color-mix(in srgb,var(--fg) 88%,var(--bg));}
-  .pdf-preview-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px;}
-  .pdf-preview-header h2{margin:0;}
-  .pdf-preview-header a{font-size:12.5px;white-space:nowrap;}
-  .pdf-preview{width:100%;height:min(82vh,900px);min-height:520px;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--preview);}
-  .pdf-page{position:relative;margin:0 auto 12px;background:#fff;box-shadow:0 1px 6px #0002;--total-scale-factor:var(--scale-factor);}
-  .pdf-page:last-child{margin-bottom:0;}
-  .pdf-page canvas{display:block;width:100%;height:100%;}
-  .textLayer{position:absolute;inset:0;overflow:clip;line-height:1;text-align:initial;letter-spacing:normal;word-spacing:normal;text-size-adjust:none;transform-origin:0 0;z-index:1;--min-font-size:1;--min-font-size-inv:1;--text-scale-factor:calc(var(--total-scale-factor) * var(--min-font-size));}
-  .textLayer :is(span,br){color:transparent;position:absolute;white-space:pre;cursor:text;transform-origin:0% 0%;user-select:text;}
-  .textLayer > :not(.markedContent),.textLayer .markedContent span:not(.markedContent){--font-height:0;font-size:calc(var(--text-scale-factor) * var(--font-height));--scale-x:1;--rotate:0deg;transform:rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));}
-  .textLayer .markedContent{display:contents;}
-  .textLayer ::selection{background:rgb(0 100 255 / .28);color:transparent;}
-  .details-title{margin-top:48px;}
   [hidden]{display:none !important;}
-  @media print{.toolbar,.actions,.pdf-section,.details-title{display:none !important;}.cv-panel[hidden]{display:none !important;}section{break-inside:avoid;}a{text-decoration:none;}}
+  @media print{.toolbar,.actions{display:none !important;}.cv-panel[hidden]{display:none !important;}section{break-inside:avoid;}a{text-decoration:none;}}
 </style></head>
 <body><div class="wrap">
   <div class="toolbar"><a class="back" href="./">← Portfolio</a><div class="tabs" role="tablist" aria-label="Language"><button class="tab" id="tab-ja" type="button" role="tab" aria-controls="panel-ja" aria-selected="true">日本語</button><button class="tab" id="tab-en" type="button" role="tab" aria-controls="panel-en" aria-selected="false">English</button></div></div>
   <!-- Icons from Primer Octicons (MIT License, © GitHub Inc.) -->
   <div class="actions">
-    <a class="action action-primary" id="download-pdf" href="./cv-ja.pdf" download><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span class="action-label">履歴書PDFをダウンロード</span></a>
+    <a class="action action-primary" id="open-pdf" href="./cv-ja.pdf" target="_blank" rel="noopener"><span class="action-label">履歴書PDFを見る</span></a>
     <button class="action" id="copy" type="button"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg><span class="action-label">CVをコピー</span></button>
     <a class="action" id="download-word" href="./cv-ja.docx" download><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/></svg><span class="action-label">履歴書Wordをダウンロード</span></a>
   </div>
   <span id="copy-status" role="status" aria-live="polite" style="position:absolute;left:-9999px"></span>
 <div class="cv-panel" id="panel-ja" role="tabpanel" aria-labelledby="tab-ja" lang="ja">
-<section class="pdf-section" aria-label="日本語の履歴書PDFプレビュー">
-<div class="pdf-preview-header"><h2>履歴書プレビュー</h2><a href="./cv-ja.pdf" target="_blank" rel="noopener">PDFを大きく開く</a></div>
-<div class="pdf-preview" id="preview-ja" role="region" aria-label="日本語の履歴書PDF。文字を選択できます">PDFを読み込み中…</div>
-</section>
-<h2 class="details-title">経歴テキスト</h2>
 <header>
 <h1>田中 陽輝</h1>
 <p class="en">HARUKI TANAKA</p>
@@ -205,11 +187,6 @@
 </section>
 <footer>最終更新 2026年10月 ／ <a href="https://github.com/au-aii">GitHub</a> · <a href="https://zenn.dev/bur">Zenn</a></footer>
 </div><div class="cv-panel" id="panel-en" role="tabpanel" aria-labelledby="tab-en" lang="en" hidden>
-<section class="pdf-section" aria-label="English CV PDF preview">
-<div class="pdf-preview-header"><h2>PDF preview</h2><a href="./cv-en.pdf" target="_blank" rel="noopener">Open full PDF</a></div>
-<div class="pdf-preview" id="preview-en" role="region" aria-label="English CV PDF with selectable text">Loading PDF…</div>
-</section>
-<h2 class="details-title">CV text</h2>
 <header>
 <h1>Haruki Tanaka</h1>
 <p class="en">田中 陽輝</p>
@@ -308,11 +285,10 @@
 </div></div>
 <script>
   let active='ja';
-  function setLanguage(lang){active=lang;document.documentElement.lang=lang;for(const code of ['ja','en']){document.getElementById('panel-'+code).hidden=code!==lang;document.getElementById('tab-'+code).setAttribute('aria-selected',String(code===lang));}document.querySelector('#copy .action-label').textContent=lang==='ja'?'CVをコピー':'Copy CV';document.querySelector('#download-pdf .action-label').textContent=lang==='ja'?'履歴書PDFをダウンロード':'Download PDF';document.getElementById('download-pdf').href='./cv-'+lang+'.pdf';document.querySelector('#download-word .action-label').textContent=lang==='ja'?'履歴書Wordをダウンロード':'Download Word';document.getElementById('download-word').href='./cv-'+lang+'.docx';document.dispatchEvent(new CustomEvent('cv-language-change',{detail:lang}));}
+  function setLanguage(lang){active=lang;document.documentElement.lang=lang;for(const code of ['ja','en']){document.getElementById('panel-'+code).hidden=code!==lang;document.getElementById('tab-'+code).setAttribute('aria-selected',String(code===lang));}document.querySelector('#copy .action-label').textContent=lang==='ja'?'CVをコピー':'Copy CV';document.querySelector('#open-pdf .action-label').textContent=lang==='ja'?'履歴書PDFを見る':'Open PDF';document.getElementById('open-pdf').href='./cv-'+lang+'.pdf';document.querySelector('#download-word .action-label').textContent=lang==='ja'?'履歴書Wordをダウンロード':'Download Word';document.getElementById('download-word').href='./cv-'+lang+'.docx';document.dispatchEvent(new CustomEvent('cv-language-change',{detail:lang}));}
   document.getElementById('tab-ja').addEventListener('click',()=>setLanguage('ja'));
   document.getElementById('tab-en').addEventListener('click',()=>setLanguage('en'));
-  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const text=Array.from(panel.querySelectorAll('header, section:not(.pdf-section), footer')).map(element=>element.innerText.trim()).join('\n\n');try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}});
+  document.getElementById('copy').addEventListener('click',async()=>{const panel=document.getElementById('panel-'+active);const text=Array.from(panel.querySelectorAll('header, section, footer')).map(element=>element.innerText.trim()).join('\n\n');try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy failed');ta.remove();}const message=active==='ja'?'コピーしました':'Copied';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}catch{const message=active==='ja'?'コピーできませんでした':'Could not copy';document.getElementById('copy-status').textContent=message;document.querySelector('#copy .action-label').textContent=message;}});
   document.querySelector('.tabs').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const next=active==='ja'?'en':'ja';setLanguage(next);document.getElementById('tab-'+next).focus();});
 </script>
-<script type="module" src="./assets/cv-preview.mjs"></script>
 </body></html>
